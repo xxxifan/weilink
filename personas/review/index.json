@@ -1,0 +1,1229 @@
+{
+  "deepseek": [
+    {
+      "id": 0,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_genshin/1b33d6528a6adfa1a23cc61cec8b3a07.png",
+      "categories": [
+        "_genshin",
+        "_kg"
+      ],
+      "sha256": "23a4de97ab173af03431357f0421d98d55f5424cad5f4205e3dbe66c2f70d4fb"
+    },
+    {
+      "id": 1,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_genshin/6682cf42-668a-469f-aa4a-bd5b237e062c.png",
+      "categories": [
+        "_genshin",
+        "_kg"
+      ],
+      "sha256": "33035147b64b01bbc356975e27682329ebc9957892043803abe5af12b2132262"
+    },
+    {
+      "id": 2,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_genshin/720491bc049f9471181cb7153290d73d.gif",
+      "categories": [
+        "_genshin"
+      ],
+      "sha256": "3ed09a3eba369f21e68984ea65d432c2f759832996feab4c564c1dba2c193db2"
+    },
+    {
+      "id": 3,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_genshin/8369a90dda3237e4569caabdf98128e3.gif",
+      "categories": [
+        "_genshin"
+      ],
+      "sha256": "404e3518abb603451efa96400ec69ad421e839c6918c8e290fa560122e174a44"
+    },
+    {
+      "id": 4,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_genshin/QQ20261015-190739.png",
+      "categories": [
+        "_genshin"
+      ],
+      "sha256": "13ef5ed36287d3356ababea80b6da7531d65006c17925855d7b598162c3f29a6"
+    },
+    {
+      "id": 5,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_green/0170F61F22B8166C58316C5C083FC1EC.jpg",
+      "categories": [
+        "_green"
+      ],
+      "sha256": "ec1399bcaafc6b4a011946b8f39318dc942fa1ee6e65571ba37943988897e362"
+    },
+    {
+      "id": 6,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_green/1769887240094.jpg",
+      "categories": [
+        "_green"
+      ],
+      "sha256": "df508da6384349b4ed206dc43564a251cb8cbfa9fd47aa8fe880b400bee62b8e"
+    },
+    {
+      "id": 7,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_green/1788453102692.gif",
+      "categories": [
+        "_green"
+      ],
+      "sha256": "173b55a3a85e35972bdb26556f6f3a378073fed7d776fb9b3d278ada0b7eb686"
+    },
+    {
+      "id": 8,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_green/1D016F135A0ED025CCC2785045F5455A.jpg",
+      "categories": [
+        "_green",
+        "_red"
+      ],
+      "sha256": "24584a3f408211cd20cf3ad09296c3f1a3b12bf985c5653a53329f9bb5dfd780"
+    },
+    {
+      "id": 9,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_green/71C44DAB7F568E063CFDEC3994B0ACE3.jpg",
+      "categories": [
+        "_green"
+      ],
+      "sha256": "a03c3d39dae0f91c11bfad1749596dc5e93df8c6c4c21ced2cc5d468e6de1699"
+    },
+    {
+      "id": 10,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_green/7E7F25280E4AEC875FD2D2054758FE21.jpg",
+      "categories": [
+        "_green",
+        "_stock"
+      ],
+      "sha256": "5caacf611200a2e8c69223b99c269627a6eda7f8abd4034bf1530aeeda670944"
+    },
+    {
+      "id": 11,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_green/86555955488AE0DA5E18A774254C27C5.jpg",
+      "categories": [
+        "_green"
+      ],
+      "sha256": "a24575bc4a0b82a48f8d9179823a402e12237e10e4ecf309d0ab8b1ff36fd3c7"
+    },
+    {
+      "id": 12,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_kg/1768023259352.jpg",
+      "categories": [
+        "_kg"
+      ],
+      "sha256": "9502fdf1fad1907941aa74a41e7f1046169105bcdd9ae5eca084a54b2d23aa20"
+    },
+    {
+      "id": 13,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_kg/21282B6A71769F8FBEBCC87D3266717E.jpg",
+      "categories": [
+        "_kg"
+      ],
+      "sha256": "fe25d148c547d49da13d990a15af14ab52f2213894802d549ad6d712cdaa797e"
+    },
+    {
+      "id": 14,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_kg/4308298E1E97238C86A00802DDE2F2AF.jpg",
+      "categories": [
+        "_kg"
+      ],
+      "sha256": "47ad982e07de03347158a9c799dd918444c612b0cecad0d61385176d9c77a60c"
+    },
+    {
+      "id": 15,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_kg/614BDB80A6E11CEAF6758E324E76DB8E.jpg",
+      "categories": [
+        "_kg"
+      ],
+      "sha256": "eb803bb1e1fe3fdf4ae26b0b5fdb425ab1f5c83b36d8106445e4d265763aa36e"
+    },
+    {
+      "id": 16,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_kg/9B2B6969E5BFFC55E31EA45376AE887B.jpg",
+      "categories": [
+        "_kg"
+      ],
+      "sha256": "dd3906622eac9b15449a550927e87aec4a31d0f0dd86ec0511ebd0d2d5336720"
+    },
+    {
+      "id": 17,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/0050ad6b031acf72e7d838fd0b1ba32f.jpg",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "e1591195fd05a6b1cd167662a58b26a2406e446aa1b182f9b32998564d879f1d"
+    },
+    {
+      "id": 18,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/0c44af639f42ccebfa34e535791bc9f4.jpg",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "3c7a4944c5e5bf637c76fb427c65ce8d1e7403456fa88f8e9844beffbe33c1e0"
+    },
+    {
+      "id": 19,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/150785270e4496f8d45e3d1f90643944.gif",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "ae34e2a57f2a19a2135f08756008ff49359d73eeb72e8a37b8004dc0b470dc28"
+    },
+    {
+      "id": 20,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/3e302ef38882bdafe40a39491fdec7fd.jpg",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "a121eb9fdd59199cfae88eec633c5a1b53440a8eeb64dc76f87eb4b18a701077"
+    },
+    {
+      "id": 21,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/48d1628d628a8c199e8bd1a092435d82.gif",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "7991bc09b6a4851791bd69f2b4865ab16672bf756b781fff6e6c7774b28e4644"
+    },
+    {
+      "id": 22,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/4A0A175C0BEA7A6AFF69BA21B58AD34B.gif",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "2c345854c2c93dc7a986c1516642c66298b693783743dddbacb09ac2bee699fa"
+    },
+    {
+      "id": 23,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/68f8463dd91507f8e9a90b9beebca758.jpg",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "5c62f8a0eef69c758435bf821ba45996a6b6eff6894d3dc2fcec42283194c8d3"
+    },
+    {
+      "id": 24,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/7BCFBFD6FF4CAB01E38E8ADE2A95C0F1.gif",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "0407aba7bea5f554686c2095cd3eead06e787eda2149d5dd4e4f5063d58d3056"
+    },
+    {
+      "id": 25,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/96d43cef102a763828c54c730e08a1c2.gif",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "fa6aee3616d1571f1923499b0513f6f8ff424d0b2e4fb637ccdb1854725d417e"
+    },
+    {
+      "id": 26,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/c420e17c3a32ae6aa9b442af5dbaee6a.png",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "bc3125110cffafdde9b764ce62b710eb62a7d88d6826ecb820393e61c070fb2b"
+    },
+    {
+      "id": 27,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/cfd6c20ea24a1f933245da1eb09f9bc8.gif",
+      "categories": [
+        "_laugh"
+      ],
+      "sha256": "1152987bb6bdbf63a1b2751fbcda25e3cd7052dc310f921cb16549406debb537"
+    },
+    {
+      "id": 28,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_laugh/e17d44f1741e7bdb7d5833bcc4b4162f.gif",
+      "categories": [
+        "_laugh",
+        "happy"
+      ],
+      "sha256": "288badc82b4e1fad72b42d68b40d71783ae6f3144cdf61bd4dafd9081070cf24"
+    },
+    {
+      "id": 29,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_lkll/5FB363D011E5DE0B7FD85AFA927C0C37.jpg",
+      "categories": [
+        "_lkll"
+      ],
+      "sha256": "574500623a3d84115530e950267f8a03595371d5da6e7945a0a9fc90edb64146"
+    },
+    {
+      "id": 30,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_lkll/E02278BE8534132C2B11B899C22D0F8E.gif",
+      "categories": [
+        "_lkll"
+      ],
+      "sha256": "9fcbca9168039756e27e1b640714f665ff518620c2fa7668ae33adf0716d48ae"
+    },
+    {
+      "id": 31,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_lksl/5637B91222763ABD0F8481193538C0C1.jpg",
+      "categories": [
+        "_lksl"
+      ],
+      "sha256": "78f2956bc263f701dc99fd86ebec1b9b17867da9e6c45d4907c9141638b77ba0"
+    },
+    {
+      "id": 32,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_lksl/EA669D4129B5A6252234E50F2C359C9F.jpg",
+      "categories": [
+        "_lksl"
+      ],
+      "sha256": "0469a0a366aeab6b88db8affced12ae64fc29b9acff86f8baea2944d96fb09c6"
+    },
+    {
+      "id": 33,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_red/1788453091578.png",
+      "categories": [
+        "_red"
+      ],
+      "sha256": "318df6db7705fc17c3294e4b15c643988ba9fbce0150a5d26a5a1a112c75b96c"
+    },
+    {
+      "id": 34,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_red/45E1C353F6805AF571E7CBE240877C89.jpg",
+      "categories": [
+        "_red"
+      ],
+      "sha256": "37c00d6fb29cbe68eda6e0872013efff92784a1d8a04b25aee20ded345e74ab2"
+    },
+    {
+      "id": 35,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_red/910722DAD4E3E41F65DE01EC84BC7672.jpg",
+      "categories": [
+        "_red",
+        "_stock"
+      ],
+      "sha256": "98c4e1adb972c2e775345f55524cdc83a77d5a9ebda9bbd2d9275ef785b12952"
+    },
+    {
+      "id": 36,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_red/F33BA93F77EB0DC6E5526F6FDC6D641B.jpg",
+      "categories": [
+        "_red",
+        "_stock"
+      ],
+      "sha256": "faa2ae0c5e745524c5794fc433dccdbaaabdfa9d19697665e343835694d1d6cf"
+    },
+    {
+      "id": 37,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_red/F8B45874896CDDA5E8A650DA6CBF4ED3.jpg",
+      "categories": [
+        "_red"
+      ],
+      "sha256": "5d0f1aef4da1a61963b4435485f711b1f537b42822457ab861f4f39c8d98f52b"
+    },
+    {
+      "id": 38,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/_stock/kurumi1.jpg",
+      "categories": [
+        "_stock"
+      ],
+      "sha256": "7790daeea0e50ab4c3ebafc660867cdf4bcff27d5b24faa7cc8b11d7b0f54072"
+    },
+    {
+      "id": 39,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/angry/025420b78f55c72acdbf270175cc46f5.jpg",
+      "categories": [
+        "angry"
+      ],
+      "sha256": "8a9845b8da82b563451677d7dc925f235cb46adb085253323763424dd3666d14"
+    },
+    {
+      "id": 40,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/angry/b8b9f952ea100f9ae2f1555b0d770997.png",
+      "categories": [
+        "angry"
+      ],
+      "sha256": "a5be8d3207b8e8e22239f3fb0a2aeac2cc1c5632c3f83cb5871fb0f7e9d1e04a"
+    },
+    {
+      "id": 41,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/angry/BD9B3F374E1089C93BE0EBAE2AE5F30B.jpg",
+      "categories": [
+        "angry"
+      ],
+      "sha256": "369dd0a50adeb1ae390d4e4722b2f4bc408d02988067a3980772f24224a156dc"
+    },
+    {
+      "id": 42,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/angry/DB7FA35C1A8D7C647E6D7508415A5C82.jpg",
+      "categories": [
+        "angry"
+      ],
+      "sha256": "be13087dcd52e94d994284be136cb2049e7a9e49f5cc6cdc24c8c0a660dac82e"
+    },
+    {
+      "id": 43,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/angry/E62A61DEF7E3C19FCFB081503AF61E43.gif",
+      "categories": [
+        "angry",
+        "givemoney"
+      ],
+      "sha256": "770c883b4183d5d7d5c1b135e803660f624c228e44a1c4b9f7ab7dcacee08405"
+    },
+    {
+      "id": 44,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/baka/1766725598224.gif",
+      "categories": [
+        "baka",
+        "like"
+      ],
+      "sha256": "36691bd12553da32638cf3031353ce2d681a22a6aa0c64bc7cb5a2e8386ebd16"
+    },
+    {
+      "id": 45,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/baka/1790955203428.gif",
+      "categories": [
+        "baka",
+        "color",
+        "happy",
+        "like",
+        "meow",
+        "morning",
+        "reply"
+      ],
+      "sha256": "5e57abd1a94df3f28a8a003ac75bb49f70039d42ef90f91be224270089d99aec"
+    },
+    {
+      "id": 46,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/baka/4e7c2f5a841654be3d4d7a14b72fc459.jpg",
+      "categories": [
+        "baka",
+        "color"
+      ],
+      "sha256": "7f7d5cbf84190b4769b6fee8f839cdee3a2aaac8b43e64d25acde5d2e284f892"
+    },
+    {
+      "id": 47,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/baka/529d982cb3d2b6069ce5f34a9bce8ef0.jpg",
+      "categories": [
+        "baka",
+        "color",
+        "fool",
+        "sad",
+        "sigh"
+      ],
+      "sha256": "98089aa5e508f020493168175a6802529125677beee9aa906e1a49c07fa5c00a"
+    },
+    {
+      "id": 48,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/baka/57492f5705e6bca7ece9a947ada21384.jpg",
+      "categories": [
+        "baka"
+      ],
+      "sha256": "93a7e09a3925dfdccea255e9b9a3503d4eacb139101b8f65dac497dce1ac127b"
+    },
+    {
+      "id": 49,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/baka/77eb13e5223ac19b0a6b1c3cb18c3693.gif",
+      "categories": [
+        "baka"
+      ],
+      "sha256": "6b7b49acc60a3f75002e80763d16fd527d52b67bf1c9e630b646f7b328bfd278"
+    },
+    {
+      "id": 50,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/baka/C3374A270242CC76CAE004AC8C48E6F6.jpg",
+      "categories": [
+        "baka",
+        "shy"
+      ],
+      "sha256": "6f38563de357e272e757d356eb958325d034543936adc38c0d3cef46927ca627"
+    },
+    {
+      "id": 51,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/color/168C476CA6292AD2E88F128193FF4501.jpg",
+      "categories": [
+        "color",
+        "sad",
+        "see"
+      ],
+      "sha256": "43a5cd7d2f0fda8dcc4eb38dd77cab041582283fa43c716e37a11954e0b347b1"
+    },
+    {
+      "id": 52,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/color/2cf74c4f597098b1e5238f81cc031d41.png",
+      "categories": [
+        "color"
+      ],
+      "sha256": "28c8197d3ef6b6aba723a1ef57ee2a4987444bde6c5176015e3560eba5130074"
+    },
+    {
+      "id": 53,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/color/347BD4A210A6CAEE4BAC4733F50EA2C3.jpg",
+      "categories": [
+        "color",
+        "sigh"
+      ],
+      "sha256": "64ff8226e7f537dc2c0a5a4ca311a000c11c2da836f3023caeccdf1debd2aff4"
+    },
+    {
+      "id": 54,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/color/B58BAA51660920C170D2A2AF071D952C.jpg",
+      "categories": [
+        "color",
+        "fool",
+        "meow"
+      ],
+      "sha256": "e1d60e8a5e72391a3700032a35454d597822ef9613cf9d54e2d70c27a9211474"
+    },
+    {
+      "id": 55,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/confused/1ed16bcc6bd248f6ebba4b7110859ea6.jpg",
+      "categories": [
+        "confused"
+      ],
+      "sha256": "143bd727dd930786db31b8140b5b4a41680411462198939614a51c04712dc7f3"
+    },
+    {
+      "id": 56,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/confused/39AC4CCD176F150B9D06D9A322A66459.jpg",
+      "categories": [
+        "confused",
+        "cpu",
+        "fool"
+      ],
+      "sha256": "a66c21598596a520d12cc024f6350485a094d8a965ebc56ca4240d8c03c7d4bc"
+    },
+    {
+      "id": 57,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/confused/3b6a7c4c0127509d03b4e4e18559562d.jpg",
+      "categories": [
+        "confused"
+      ],
+      "sha256": "68fb6d9525bd582c79744466371d1bef4e4b9aee103a88568cdc5d8bb28b1a48"
+    },
+    {
+      "id": 58,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/confused/76b7bfbc872ddd9c598a8c14f44c7cac.jpg",
+      "categories": [
+        "confused"
+      ],
+      "sha256": "5067ba8a90071fa36ba7587b937f7dff853f16d05fad3655cff42627a7e4eb4a"
+    },
+    {
+      "id": 59,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/confused/DF1EA72345115A482F714232B9AC3901.jpg",
+      "categories": [
+        "confused"
+      ],
+      "sha256": "155dab1265d5c9a4655efaf0a971eb52643a84329431b6e55c758c9e6a7ee6ad"
+    },
+    {
+      "id": 60,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/fool/55dec9c885e49704f97058d642d6cbce.jpg",
+      "categories": [
+        "fool"
+      ],
+      "sha256": "3e998bb686b0f14a432040bad8cf8c6c8afd41e8b424c19cf4fc921d983fa3bf"
+    },
+    {
+      "id": 61,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/fool/60BBDAF07A70B2208223B700020E0D5D.jpg",
+      "categories": [
+        "fool"
+      ],
+      "sha256": "19f0a1a899479457170565fe0bcb5337f96e1ed978cf3a91d68ff181d01666cd"
+    },
+    {
+      "id": 62,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/fool/C544B68BAD31248B5A62C0EB95351875.gif",
+      "categories": [
+        "fool"
+      ],
+      "sha256": "26b4d19f03e3f73f4553c2e49dee6a1c9a6b1fc60084a6650ad4381cc6a50ad3"
+    },
+    {
+      "id": 63,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/fool/Screenshot_2026-02-17-22-25-09-750_com.tencent.m.png",
+      "categories": [
+        "fool"
+      ],
+      "sha256": "1b697ce4edd1ba773a914991cd83ed4942f9e558cf79e1f23712b79d7a63a273"
+    },
+    {
+      "id": 64,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/givemoney/aad3b7237fbc36d14b634c780ecf3c2d.gif",
+      "categories": [
+        "givemoney"
+      ],
+      "sha256": "079543e641a8baf64229bfcc411ccca570c66295fd48a8f4d2d32ba8f948ae22"
+    },
+    {
+      "id": 65,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/givemoney/AB7A0D8CACE0299E3762506A74AA612B.gif",
+      "categories": [
+        "givemoney"
+      ],
+      "sha256": "c5e4e0838ef34e2dcb8426e25ed8c500395a835c0ed1cadce6089a120386111d"
+    },
+    {
+      "id": 66,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/givemoney/DFDD10A995320D27D527791EF4A88886.jpg",
+      "categories": [
+        "givemoney"
+      ],
+      "sha256": "9e132e1469fdc7b9d91703d03c8fd844657cfae53f1e7f919c5e79c3793f674e"
+    },
+    {
+      "id": 67,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/givemoney/EA2826D395F8D97E6B5B86E193E724C0.gif",
+      "categories": [
+        "givemoney",
+        "work"
+      ],
+      "sha256": "8082314e769d6aaec46be831c365628661d28046a2f8920cd9036dc5682fa891"
+    },
+    {
+      "id": 68,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/happy/22F8857D9346E99D0FFBAEC93A74FC71.gif",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "04b5801b2a53858e36b737a1011201326cf9fcd57de6aee8b5921d0dbbd5c5b6"
+    },
+    {
+      "id": 69,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/happy/4a6e848c515361363c795705b052c2f7.jpg",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "ab882ad109c7a7a814286e975aa6f63c651e24bcc377c3392f4db9bd590d4130"
+    },
+    {
+      "id": 70,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/happy/4b495b576a5fc0d27dcb4172e227f9c4.gif",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "459986557a763d9a44233c72042f951d5a45eabe940117df3ed4766c9498b8e4"
+    },
+    {
+      "id": 71,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/happy/57c80c0b29284b85f121a518bdecf487.gif",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "adfd5be3401ca450461839ab2610071d18ed3b465ae53be7bd8973a9b82e7def"
+    },
+    {
+      "id": 72,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/happy/886dc259f130ae6393bac944c1e4cee0.jpg",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "ceda333d8b0d1d5370ae5a059c70fb86c9a7b99599bb36c79240af7da3e3fbee"
+    },
+    {
+      "id": 73,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/happy/93fa8e5929158c421a23837ec557c53f.jpg",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "db37cc052411d30ad49d5745d1a74050f72ee48b11877f8c63861a0c3a783d46"
+    },
+    {
+      "id": 74,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/happy/FB7895AE53FB6D78F9A4B237791CDB65.gif",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "5187f5ebaf67d6de0db593acd65dec6489f4791271186b8099d5df1b76ff1699"
+    },
+    {
+      "id": 75,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/like/12CA2965A2E54C232B1062F138F14821.jpg",
+      "categories": [
+        "like"
+      ],
+      "sha256": "3ef7d2d6c52ff4813ed2699625e7f3b4859ee210fb1b426023d0219e7f5c61f3"
+    },
+    {
+      "id": 76,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/like/33765deb15b867e21478ef210e1b91d0.jpg",
+      "categories": [
+        "like"
+      ],
+      "sha256": "9c54731764dec686ad87926c20c5be23b210c366a9a85f23578849479c478be1"
+    },
+    {
+      "id": 77,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/like/8B9CFD8802218D5058CAF17313A95636.gif",
+      "categories": [
+        "like",
+        "meow"
+      ],
+      "sha256": "8e4c0956a7583f12f131c83717e8d46ea157550834c259a96c4ffd8bafce5cdb"
+    },
+    {
+      "id": 78,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/like/e201b0e96e0651cfefea774471c0ba49.jpg",
+      "categories": [
+        "like"
+      ],
+      "sha256": "3c10df8b1708830a9b21d7263ba57fe3e5dea447ae392893d5e575d161401568"
+    },
+    {
+      "id": 79,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/like/E512E07CDD6F1CA4F1126ED8F5A063F4.jpg",
+      "categories": [
+        "like"
+      ],
+      "sha256": "b05d68138d4404f6d60e60bfd7c2f460641a1b077df84a10536594d2308c64ba"
+    },
+    {
+      "id": 80,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/meow/1DEDA94AB1AEDBFE9B82DFDB9FCC093A.gif",
+      "categories": [
+        "meow",
+        "see",
+        "sigh"
+      ],
+      "sha256": "4019c5d3d6b1e6a9d0f72fdefee63abcddbc6cdf8a9b96e48f578295064bccb1"
+    },
+    {
+      "id": 81,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/meow/b82c0a30123f44e58ab92c77328a9184.jpg",
+      "categories": [
+        "meow"
+      ],
+      "sha256": "fa36eb678fd53af9a61faada534f44a32707ccf58726ec99b4943bab54f3af03"
+    },
+    {
+      "id": 82,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/morning/932CB59BE5C9C85A1D8270E580F63E9F.jpg",
+      "categories": [
+        "morning"
+      ],
+      "sha256": "473996178ddfe2c40cea328d7bedcc19c1d106764a31b40e257eeb5c609303da"
+    },
+    {
+      "id": 83,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sad/10382a8a64322a9c1bfbe2757fd0c449.jpg",
+      "categories": [
+        "sad"
+      ],
+      "sha256": "0816b6b5dd9aa0a279f822fae0121c303ea7f2bc65887267ecce12a5c6338b92"
+    },
+    {
+      "id": 84,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sad/3bc8be6567153591d10860d0280e44f6.jpg",
+      "categories": [
+        "sad"
+      ],
+      "sha256": "df03e5859e4fd089434ae161fc13520da426b9f2bb537ded708350b79f53d363"
+    },
+    {
+      "id": 85,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sad/B719B75A4F2F256D58957FA6673060E2.jpg",
+      "categories": [
+        "sad"
+      ],
+      "sha256": "9fc5a7a777f59643bfe643055cde159cd58a5f1ebbd6a5b698235bd86c25a48b"
+    },
+    {
+      "id": 86,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sad/C82D21A1F09533FBBDC0D755FA248050.gif",
+      "categories": [
+        "sad"
+      ],
+      "sha256": "35dbf85ec31fccac2f45a4f66d210a6600a51ce9059a47f0d6719aa63ee995e6"
+    },
+    {
+      "id": 87,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sad/d097da74b987f925c22a08df1bcdf2bb.gif",
+      "categories": [
+        "sad"
+      ],
+      "sha256": "c1c62ee2864657b13ec78e9bf41ee34a6fba0ec003ebe01e7a74dbbc8a43f09e"
+    },
+    {
+      "id": 88,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sad/Screenshot_2026-10-02-21-53-27-631_com.bilibili..png",
+      "categories": [
+        "sad"
+      ],
+      "sha256": "2f2c045ae25774015b7b1a4ea1639acbbf09011de07c4c5b26a7686df75ebcd7"
+    },
+    {
+      "id": 89,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/see/474abd89b54844111679b10fb468723a.gif",
+      "categories": [
+        "see",
+        "surprised"
+      ],
+      "sha256": "10995cd8edc852aa89d38a02937676e9b3e7c9c8fd8023f8c93f897807f32a44"
+    },
+    {
+      "id": 90,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/see/6fc52a5a827c2633214c625702e0af4d.gif",
+      "categories": [
+        "see"
+      ],
+      "sha256": "ce060c5668c3225c418d4cb6ab938f067b19d7804fe263436e832ae93db4938e"
+    },
+    {
+      "id": 91,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/see/8135e9fd8486ba737758eb5b6815f4b0.png",
+      "categories": [
+        "see"
+      ],
+      "sha256": "808284bbca8d8f3f85a704c17594df652cd3ee1d1229a109d850ee15a8dfd790"
+    },
+    {
+      "id": 92,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sigh/0ca280eb9f4d53768780bbf18b0da381.gif",
+      "categories": [
+        "sigh"
+      ],
+      "sha256": "1fecf67a699cbd992442642699449c4722cf80b05912a2d5a0254464f9e62fce"
+    },
+    {
+      "id": 93,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sigh/145f7f882bbf4fc3fbd068831e496e71.jpg",
+      "categories": [
+        "sigh"
+      ],
+      "sha256": "fe3d9a6c28583109632ed2cfe77bbd459d1d09cf7b64f9703d2d4af71c798783"
+    },
+    {
+      "id": 94,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sigh/7331947e3a433a7f1158ebf0c8830db8.jpg",
+      "categories": [
+        "sigh"
+      ],
+      "sha256": "b9b6fd6c34b87fa7a0859e8be589b36486ccad2315661ac435cc031ccf11696b"
+    },
+    {
+      "id": 95,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sigh/7F253FA06030CC596663726735EDF4AE.jpg",
+      "categories": [
+        "sigh"
+      ],
+      "sha256": "4fb26769b8e8269b047b901e7156266283d3e5477e260273f6215a561df9ea4b"
+    },
+    {
+      "id": 96,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sigh/920f27ccea0cdd972891ae2f0830a10a.gif",
+      "categories": [
+        "sigh"
+      ],
+      "sha256": "06b3e796c8ad4b29af080fd042686c274d7c123ddbd342a5dea96f0c339dfabf"
+    },
+    {
+      "id": 97,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/sleep/2AA140B877EEBF6536E0B311C55E8063.jpg",
+      "categories": [
+        "sleep"
+      ],
+      "sha256": "bb3d160f2fb3142612c71c16bfe1304098f731287d1968f3d59f73f962a7f5cb"
+    },
+    {
+      "id": 98,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/surprised/139AE69D95C3150024F9A5B5A27B024A.jpg",
+      "categories": [
+        "surprised"
+      ],
+      "sha256": "5e3d8970f0c434a5e1e64f355295a7e0d95557f9a21a2b702805e277bbf382ba"
+    },
+    {
+      "id": 99,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/surprised/397593367c0d193bcf5faf3eb76dc20b.jpg",
+      "categories": [
+        "surprised"
+      ],
+      "sha256": "d46b673aa59f0648f498d264370032c5c40e4432c67293d936ebf6b01e94bd39"
+    },
+    {
+      "id": 100,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/surprised/39b6aa230341ae64f8c8d26e64ac0757.jpg",
+      "categories": [
+        "surprised"
+      ],
+      "sha256": "ef36cd6ebfa9de8f68ccb7fc5914f0a57a65ab7ee44609f825124f779e11e3c2"
+    },
+    {
+      "id": 101,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/surprised/fd98613823fb48a4c0562fabf40d1c21.gif",
+      "categories": [
+        "surprised"
+      ],
+      "sha256": "7092fd732f3692ba0b9b65078be642636815c550a9fed008ffcb76b2d6fe998c"
+    },
+    {
+      "id": 102,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/surprised/Screenshot_2026-04-24-10-39-07-622_com.ss.androi.png",
+      "categories": [
+        "surprised"
+      ],
+      "sha256": "5cb6787a2d3e3c61f31e694331014bc11250ac03db3e957dda8b3077aee60e77"
+    },
+    {
+      "id": 103,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/work/1791761564345.png",
+      "categories": [
+        "work"
+      ],
+      "sha256": "24755a25ff7122bc759a935c69e8bfa879d75410f4fd58409ce3e447354a1ee9"
+    },
+    {
+      "id": 104,
+      "path": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967/memes/work/1FAB29425D5E7FAF5FD8D3BC5C728AF6.gif",
+      "categories": [
+        "work"
+      ],
+      "sha256": "d4d93ac0f59257cbe4b6afcde4b7b7f76a6c2d96c5102593577c16040f3bde2d"
+    }
+  ],
+  "aemeath": [
+    {
+      "id": 0,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/angry/11A4A9E02F2319A8A56903938EE807F4.gif",
+      "categories": [
+        "angry"
+      ],
+      "sha256": "4ebbbab2da4e3adf0238a506985f1b2085514dd7e7b0424ddabd411443c04485"
+    },
+    {
+      "id": 1,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/angry/27FEDA0AEB36663C641FEE9C4D6E6BD2.gif",
+      "categories": [
+        "angry",
+        "baka"
+      ],
+      "sha256": "2a0ac62f0ed509ec8abf29017c07788f7904068ffe17c065399b8c8ea7999819"
+    },
+    {
+      "id": 2,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/angry/51EB7DF44975C05558009248AA775962.gif",
+      "categories": [
+        "angry"
+      ],
+      "sha256": "0737f650cbeccdcfab20af85775afe2f6dfa025a6cdfc30765cf141624be8e9d"
+    },
+    {
+      "id": 3,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/angry/C1C167646962D6C48455694B9E201322.gif",
+      "categories": [
+        "angry",
+        "baka",
+        "morning"
+      ],
+      "sha256": "efa2c2185ae0e2287b0299fe6291f8dd1e4d2e5cad3ecbf0c4adca5e132b647b"
+    },
+    {
+      "id": 4,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/baka/5486A8889F1F82EBB5904D19AFECAC85.gif",
+      "categories": [
+        "baka"
+      ],
+      "sha256": "6afd17a41b874c20f4f72cb7f73a50d187edc437a76fc26199e588cfa4f51016"
+    },
+    {
+      "id": 5,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/color/57b1bf0b957e6d5d356ad35420bdc29b.gif",
+      "categories": [
+        "color"
+      ],
+      "sha256": "5f2ba1d464ab5c5985cfeabd04bafa04fffa4ae3bc4184f2c5e4764bb4f49fc5"
+    },
+    {
+      "id": 6,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/color/c0bc1c46a1f24a90ad3b475cf07ec534.gif",
+      "categories": [
+        "color",
+        "happy",
+        "meow"
+      ],
+      "sha256": "71064811456dca50872ec8019340a9f0592f0faf76b1418d9a1b37028abdc4bf"
+    },
+    {
+      "id": 7,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/color/F53396B112673098ABD543FF5239D36B.gif",
+      "categories": [
+        "color",
+        "meow",
+        "morning",
+        "reply",
+        "see",
+        "sleep"
+      ],
+      "sha256": "b116292ed609ff1860503c1be43a24da29f85d3a26c9edeb4863a8ddcd388477"
+    },
+    {
+      "id": 8,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/confused/B350ADDE707B1D244F8FFA517331303A.gif",
+      "categories": [
+        "confused",
+        "shy"
+      ],
+      "sha256": "b1310228e8e7c2f81bbe783f8d1f21ef932dfd26b31541ad16762e73e84d1cea"
+    },
+    {
+      "id": 9,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/cpu/D2820F83F1402B7F4D8055FFC14A5162.gif",
+      "categories": [
+        "cpu",
+        "sad"
+      ],
+      "sha256": "62433572cb7c691f18ae49514cc9e5703e96b2e82db1998320a31cb07725310d"
+    },
+    {
+      "id": 10,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/cpu/da72287fa8612a1d7fa3ad034a4b6397.gif",
+      "categories": [
+        "cpu"
+      ],
+      "sha256": "134d4c0832a489f590969146727bdb384b1ff1af8ec976770ac3c2dd7075b0c1"
+    },
+    {
+      "id": 11,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/fool/5AE14AA0DD886B0E66595B618AB7006F.gif",
+      "categories": [
+        "fool",
+        "meow"
+      ],
+      "sha256": "c65a9f8852663b135497efb9288c4df17be6d392d434e17d5423cac5fb320a41"
+    },
+    {
+      "id": 12,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/fool/Image_1777533368471.gif",
+      "categories": [
+        "fool"
+      ],
+      "sha256": "42923ca898d6d397b1a36db7764f676a418d62268f707578941cb63e904f75a7"
+    },
+    {
+      "id": 13,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/givemoney/2B6E90C5F9D0CBF1FD2B9FBB5188A215.gif",
+      "categories": [
+        "givemoney"
+      ],
+      "sha256": "3d2de58f45bac3b26a8d3e35d827b5b7afc9772aeff4d13d321558df27dc8049"
+    },
+    {
+      "id": 14,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/05558E07218172AC79116D923D3C8E61.gif",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "add3f26a2173c3794c22acc34594510949fa8176032e53b6f5de84e7c7e14160"
+    },
+    {
+      "id": 15,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/27B07D484A3C80E20F8A9A921E0B27EE.gif",
+      "categories": [
+        "happy",
+        "like"
+      ],
+      "sha256": "9e0ef8439441d51c9d2207bf34675a11b522dcdb0589f61f601121f5c0081df7"
+    },
+    {
+      "id": 16,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/7e55db85e94a7afb40da114412b2ea68.gif",
+      "categories": [
+        "happy",
+        "meow"
+      ],
+      "sha256": "910f5632be54ef76dbf105478864a2dac8c2a62ca8ef7f608b4b6417a789e444"
+    },
+    {
+      "id": 17,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/93921A35B5AC6DEDA8D2AF687A922805.jpg",
+      "categories": [
+        "happy",
+        "meow"
+      ],
+      "sha256": "87f986c6a75cfff654e3697ec69f2cbe275e9a7875d4ff14b7497653d88cc61e"
+    },
+    {
+      "id": 18,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/9AE8E6B2666AAE9D35A7DF5B41948743.gif",
+      "categories": [
+        "happy",
+        "surprised"
+      ],
+      "sha256": "eca3b472634efc4c766cb4466b1b2c185f69ae3c275061b68bf27bfa9ee07e29"
+    },
+    {
+      "id": 19,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/D300611742567085121B8C80D7EDDC1D.gif",
+      "categories": [
+        "happy",
+        "like"
+      ],
+      "sha256": "275dfa74a6e1b47c84988cef4596f001c96a702d3b9c633ddff00ac7624891b6"
+    },
+    {
+      "id": 20,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/Image_1770867892027.gif",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "7a3e368164f06cedf53f19ad9a3ae5d9382fec2089ee5172f48e56ba61703433"
+    },
+    {
+      "id": 21,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/Image_1770867901736.gif",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "dd00df434bd9022f7e754600addefdc5c1dee565ff70491b0e04038754d62fa2"
+    },
+    {
+      "id": 22,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/Image_1770867914383.gif",
+      "categories": [
+        "happy"
+      ],
+      "sha256": "56edf4df3bbffa2eaf9e735eed19f1e738025e792b681001bde85c3cd52d974e"
+    },
+    {
+      "id": 23,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/happy/Screenshot_2026-05-05-01-40-48-296_com.baidu.tie.jpg",
+      "categories": [
+        "happy",
+        "work"
+      ],
+      "sha256": "524f0904876a6cb2c8f6a33e02c0a9a06c11174fc7114fb3ce0dc9f22c7f0051"
+    },
+    {
+      "id": 24,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/like/702d7a36ef0716eb1c1865fc7dc3f46a.gif",
+      "categories": [
+        "like"
+      ],
+      "sha256": "2934e11e736c6959d51a8474e7332d6f6a4c871d4ca9407ce4ef365a6eaf6f20"
+    },
+    {
+      "id": 25,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/like/A5F88F7AEE1081DAF2ECDA263B6693D2.jpg",
+      "categories": [
+        "like",
+        "morning"
+      ],
+      "sha256": "73f73ed7e7984120a34aaa0124bfd1eb52906125cb1db4cadce3b58239a09708"
+    },
+    {
+      "id": 26,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/like/a9cd5327c58e881724a37870c603711d_720.gif",
+      "categories": [
+        "like"
+      ],
+      "sha256": "0af2c89d97ed232ae1fc216172154a1745f819075f0bd55ae32d4f28a7b8b746"
+    },
+    {
+      "id": 27,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/like/E512E07CDD6F1CA4F1126ED8F5A063F4.jpg",
+      "categories": [
+        "like",
+        "morning"
+      ],
+      "sha256": "b05d68138d4404f6d60e60bfd7c2f460641a1b077df84a10536594d2308c64ba"
+    },
+    {
+      "id": 28,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/like/Image_1777533378467.gif",
+      "categories": [
+        "like"
+      ],
+      "sha256": "8aa18a73adf0262342cf6dc446868f87d4593361df31d6bc8c8ce4cad9cbf78c"
+    },
+    {
+      "id": 29,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/like/Image_1777533386079.gif",
+      "categories": [
+        "like"
+      ],
+      "sha256": "2f4460ed4dd8e6e1223ac3aa1bc57b9d117bd9b3c7e70e41c718f5a202e78a4b"
+    },
+    {
+      "id": 30,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/meow/a3881dd6ebb1fb2f58ee6e0db43906f0.gif",
+      "categories": [
+        "meow"
+      ],
+      "sha256": "64b11fdfdae1c3299c72faecd2efcfb5d3c9dcaf7452b0d94dc324e8f76e1c56"
+    },
+    {
+      "id": 31,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/meow/b6a2f911a78a5e040ccf3374d53beff4.gif",
+      "categories": [
+        "meow"
+      ],
+      "sha256": "b0fa519ce0a337d08eb239440be65e36022b883c68dc0d8baecb4126a1719487"
+    },
+    {
+      "id": 32,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/morning/Image_1770867909404.gif",
+      "categories": [
+        "morning"
+      ],
+      "sha256": "12d7165ef2e05c173307abf7f98ae9b9c1da64de89b8b78fc5aa1eb323443ae8"
+    },
+    {
+      "id": 33,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/reply/Image_1777533345521.gif",
+      "categories": [
+        "reply",
+        "work"
+      ],
+      "sha256": "30ae7f43847a3f22a89039a84eb9d8003815516350308c1e043b97506191d0bf"
+    },
+    {
+      "id": 34,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/sad/504700B0154DE92AF9F84785B93CE0B3.gif",
+      "categories": [
+        "sad"
+      ],
+      "sha256": "60c319766052b8f9100be32159cbf192a9a9c5e251427bef74f6a9629286d2ed"
+    },
+    {
+      "id": 35,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/shy/81DB9CB97B0A37DC3936954EBC065CC1.gif",
+      "categories": [
+        "shy"
+      ],
+      "sha256": "58b719b87aea6e374eea7b52cb64968f709915ccbb5f94464b04dd1f68185e95"
+    },
+    {
+      "id": 36,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/sigh/Image_1777533359098.gif",
+      "categories": [
+        "sigh"
+      ],
+      "sha256": "231fa00a37da4a3d8e073a2c027e6d787903e0345f6186aef89cc33385defc31"
+    },
+    {
+      "id": 37,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/sleep/31BBCC6AB32E65F57AB93A212BC51FE5.gif",
+      "categories": [
+        "sleep"
+      ],
+      "sha256": "126027fc889ce58058b0ba028e68685fb40342a51b902bac1a09e97cee0b9479"
+    },
+    {
+      "id": 38,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/surprised/04BA5B627449E74D43BB50A6606D62B2.gif",
+      "categories": [
+        "surprised"
+      ],
+      "sha256": "2f11e8d68f96c49be32d76fcbd9deca61c87a350647a8ac0ea506b833cad05b2"
+    },
+    {
+      "id": 39,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/surprised/1784690674427.jpg",
+      "categories": [
+        "surprised"
+      ],
+      "sha256": "d18b7b0cc1c2c37d09654fa5b09aca44e8aade8cd04d571eec84c7b4dfc5ec2b"
+    },
+    {
+      "id": 40,
+      "path": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d/memes/surprised/1C16BF25C08AAD301F58241111D49BC5.gif",
+      "categories": [
+        "surprised"
+      ],
+      "sha256": "64e8a3175061536cb12890845b536c12b600d949774cf853a76c4ff5aaad389b"
+    }
+  ]
+}

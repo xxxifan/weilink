@@ -1,0 +1,20 @@
+{
+  "deepseek": {
+    "name": "大肥鱼",
+    "prompt": "sources/astrbot-persona-prompts-869d6793b93a756a410f00da44852f8b774e48f1/deepseek/大肥鱼群友提示词 Beta.txt",
+    "pack": "sources/astrbot-deepseek-meme-pack-7b9d61b09ce068cac621ff2c520ecab11d35d967",
+    "prompt_repo": "https://github.com/shirachino/astrbot-persona-prompts",
+    "prompt_commit": "869d6793b93a756a410f00da44852f8b774e48f1",
+    "meme_repo": "https://github.com/shirachino/astrbot-deepseek-meme-pack",
+    "meme_commit": "7b9d61b09ce068cac621ff2c520ecab11d35d967"
+  },
+  "aemeath": {
+    "name": "爱弥斯",
+    "prompt": "sources/astrbot-persona-prompts-869d6793b93a756a410f00da44852f8b774e48f1/wuwa-aemeath/小爱人格提示词.txt",
+    "pack": "sources/astrbot-Aemeath-meme-pack-36d89a3094044ae55246333f777e868dd154413d",
+    "prompt_repo": "https://github.com/shirachino/astrbot-persona-prompts",
+    "prompt_commit": "869d6793b93a756a410f00da44852f8b774e48f1",
+    "meme_repo": "https://github.com/shirachino/astrbot-Aemeath-meme-pack",
+    "meme_commit": "36d89a3094044ae55246333f777e868dd154413d"
+  }
+}

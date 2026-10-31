@@ -1,0 +1,33 @@
+# Local credentials, conversations and generated media.
+/bridge-config.json
+/data/
+/bridge-state.sqlite*
+/bridge-status.json
+/bridge.lock
+/bridge.stop
+*.log
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+
+# Local environments and tool caches.
+.venv/
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.wechat-images/
+.wechat-voices/
+
+# Historical snapshots and local media investigations.
+/backups/
+/personas/backup-*/
+/personas/animation-diagnostics/
+/personas/animation-preview/
+/personas/*test-results.txt
+/personas/sources/*.zip
