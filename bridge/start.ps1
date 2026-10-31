@@ -2,15 +2,17 @@ $ErrorActionPreference = 'Stop'
 $bridgeRoot = Split-Path -Parent $PSScriptRoot
 $bridgePython = Join-Path $bridgeRoot '.venv\Scripts\python.exe'
 $bridgeEntry = Join-Path $PSScriptRoot 'wechat_bridge.py'
-$bridgeStatus = Join-Path $bridgeRoot 'bridge-status.json'
-if (Test-Path -LiteralPath $bridgeStatus) {
-    $snapshot = Get-Content -LiteralPath $bridgeStatus -Raw | ConvertFrom-Json
-    $running = Get-Process -Id $snapshot.pid -ErrorAction SilentlyContinue
-    if ($running -and ([DateTimeOffset]::UtcNow.ToUnixTimeSeconds() - $snapshot.updated_at) -lt 10) {
-        Write-Output 'WeChat bridge is already running.'
-        exit 0
-    }
+
+# Match the actual entry path, including before the first heartbeat or after a delayed heartbeat.
+$entryPattern = '(?i)(?:^|[\s"])' + [regex]::Escape($bridgeEntry) + '(?:[\s"]|$)'
+$running = Get-CimInstance -ClassName Win32_Process -Filter "Name = 'python.exe' OR Name = 'pythonw.exe'" |
+    Where-Object { $_.CommandLine -match $entryPattern } |
+    Select-Object -First 1
+if ($running) {
+    Write-Output 'WeChat bridge is already running.'
+    exit 0
 }
+
 $bridgeStop = Join-Path $bridgeRoot 'bridge.stop'
 if (Test-Path -LiteralPath $bridgeStop) {
     Remove-Item -LiteralPath $bridgeStop
