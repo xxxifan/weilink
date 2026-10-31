@@ -283,10 +283,10 @@ class IncomingImageBridgeTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_other_media_has_a_precise_supported_types_message(self):
         await self.bridge.receive(
-            Message(from_user="owner", message_id=124, msg_type=MessageType.VIDEO)
+            Message(from_user="owner", message_id=124, msg_type=MessageType.FILE)
         )
         self.assertIsNone(self.state.next_message())
-        self.assertIn("文字、图片和语音", self.state.next_reply()["text"])
+        self.assertIn("文字、图片、语音和视频", self.state.next_reply()["text"])
 
 
 class IncomingMigrationTests(unittest.TestCase):

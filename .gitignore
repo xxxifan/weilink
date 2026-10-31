@@ -23,6 +23,7 @@ __pycache__/
 htmlcov/
 .wechat-images/
 .wechat-voices/
+.wechat-videos/
 
 # Historical snapshots and local media investigations.
 /backups/

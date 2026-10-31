@@ -84,6 +84,6 @@ def help_text() -> str:
         for title, entries in groups
     ]
     sections.append(
-        "编号使用对应列表或确认消息中的值；方括号表示可选参数。普通文字和图片进入当前微信会话。"
+        "编号使用对应列表或确认消息中的值；方括号表示可选参数。文字、图片、语音和视频进入当前微信会话。视频支持 3 分钟、100 MB 以内，按时间抽样画面并尝试识别音轨。"
     )
     return card("微信 Codex · 使用帮助", *sections)

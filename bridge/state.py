@@ -71,6 +71,12 @@ class State:
                 self.db.execute("ALTER TABLE inbox ADD COLUMN voice_path TEXT")
             if "transcription" not in columns:
                 self.db.execute("ALTER TABLE inbox ADD COLUMN transcription TEXT")
+            if "has_video" not in columns:
+                self.db.execute(
+                    "ALTER TABLE inbox ADD COLUMN has_video INTEGER NOT NULL DEFAULT 0"
+                )
+            if "video_path" not in columns:
+                self.db.execute("ALTER TABLE inbox ADD COLUMN video_path TEXT")
         # Preserve all previously issued t-numbers. A table with a UNIQUE
         # thread ID also prevents the notifier and receiver allocating the
         # same number to different tasks in concurrent processes.
@@ -191,10 +197,11 @@ class State:
         quoted_context: dict | None = None,
         has_image: bool = False,
         has_voice: bool = False,
+        has_video: bool = False,
     ) -> bool:
         with self.db:
             result = self.db.execute(
-                "INSERT OR IGNORE INTO inbox (message_id,thread_id,text,status,received_at,quoted_context,has_image,has_voice) VALUES (?,?,?,?,?,?,?,?)",
+                "INSERT OR IGNORE INTO inbox (message_id,thread_id,text,status,received_at,quoted_context,has_image,has_voice,has_video) VALUES (?,?,?,?,?,?,?,?,?)",
                 (
                     message_id,
                     thread_id,
@@ -206,6 +213,7 @@ class State:
                     else None,
                     int(has_image),
                     int(has_voice),
+                    int(has_video),
                 ),
             )
         return bool(result.rowcount)
@@ -228,6 +236,13 @@ class State:
             self.db.execute(
                 "UPDATE inbox SET voice_path=?,transcription=? WHERE message_id=? AND has_voice=1",
                 (path, text, message_id),
+            )
+
+    def save_video_path(self, message_id: str, path: str) -> None:
+        with self.db:
+            self.db.execute(
+                "UPDATE inbox SET video_path=? WHERE message_id=? AND has_video=1",
+                (path, message_id),
             )
 
     def save_reference(self, message_id: str, reference: dict) -> None:
