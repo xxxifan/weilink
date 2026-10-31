@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sqlite3
 import subprocess
@@ -15,8 +16,6 @@ from weilink import WeiLink
 from weilink._store import deserialize_message
 from weilink.models import MessageType
 
-RUNTIME = Path(__file__).resolve().parents[2] / "tts"
-SCRIPT = Path.home() / ".codex" / "skills" / "edge-voice" / "scripts" / "speech.py"
 REPLY_MARKER = re.compile(r"(?m)^\s*\[\[reply:(voice|text)\]\]\s*$")
 MAX_VOICE_BYTES = 20 * 1024 * 1024
 
@@ -25,16 +24,32 @@ class VoiceError(RuntimeError):
     pass
 
 
+def speech_command() -> list[str]:
+    # Resolve local installations at runtime. Published source must not carry
+    # a developer's home directory; overrides also support other layouts.
+    runtime = Path(
+        os.environ.get("WEILINK_VOICE_RUNTIME")
+        or Path(__file__).resolve().parents[2] / "tts"
+    ).expanduser()
+    codex_home = Path(
+        os.environ.get("CODEX_HOME") or Path.home() / ".codex"
+    ).expanduser()
+    script = Path(
+        os.environ.get("WEILINK_VOICE_SCRIPT")
+        or codex_home / "skills" / "edge-voice" / "scripts" / "speech.py"
+    ).expanduser()
+    return [
+        str(runtime / ".venv" / "Scripts" / "python.exe"),
+        "-X",
+        "utf8",
+        str(script),
+    ]
+
+
 def run_speech(*arguments: str) -> dict:
     try:
         result = subprocess.run(
-            [
-                str(RUNTIME / ".venv" / "Scripts" / "python.exe"),
-                "-X",
-                "utf8",
-                str(SCRIPT),
-                *arguments,
-            ],
+            [*speech_command(), *arguments],
             capture_output=True,
             text=True,
             encoding="utf-8",

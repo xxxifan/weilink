@@ -140,7 +140,12 @@ pwsh -File .\bridge\stop.ps1
 
 语音识别、语音回复和视频音轨转写需要额外准备 **edge-voice 技能与独立 TTS 环境**，安装本仓库的 Python 依赖并不会自动配置这些功能。
 
-迁移到其他电脑时，需要调整 `bridge/voice.py` 的 `RUNTIME`、`SCRIPT`，以及 `bridge/wechat_bridge.py` 中的语音技能提示路径，使其指向本机环境。
+语音环境默认使用仓库同级 `tts/` 下的 `.venv/Scripts/python.exe`；识别脚本默认位于当前用户的 `~/.codex/skills/edge-voice/scripts/speech.py`，也会遵循 `CODEX_HOME`。使用其他安装位置时，可在启动桥接器前设置环境变量，无需修改源码：
+
+```powershell
+$env:WEILINK_VOICE_RUNTIME = 'C:/path/to/tts'
+$env:WEILINK_VOICE_SCRIPT = 'C:/path/to/edge-voice/scripts/speech.py'
+```
 
 语音回复以 MP3 文件附件发送；生成失败时回退文字。包含代码或链接的回复还会保留可复制的文字内容。
 

@@ -21,6 +21,7 @@ from voice import (
     Voices,
     explicit_text_reply,
     reply_mode,
+    speech_command,
     voice_attachment,
     voice_metadata,
 )
@@ -58,6 +59,52 @@ def incoming_message(owner="owner", message_id=123):
             media=MediaInfo(encrypt_query_param="private-cdn", aes_key="private-key")
         ),
     )
+
+
+class SpeechRuntimeTests(unittest.TestCase):
+    def test_default_paths_are_resolved_from_installation_and_user_home(self):
+        with patch.dict(
+            "voice.os.environ",
+            {
+                "WEILINK_VOICE_RUNTIME": "",
+                "WEILINK_VOICE_SCRIPT": "",
+                "CODEX_HOME": "",
+            },
+        ):
+            command = speech_command()
+        runtime = Path(__file__).resolve().parents[3] / "tts"
+        self.assertEqual(Path(command[0]), runtime / ".venv" / "Scripts" / "python.exe")
+        self.assertEqual(
+            Path(command[3]),
+            Path.home() / ".codex" / "skills" / "edge-voice" / "scripts" / "speech.py",
+        )
+
+    def test_environment_overrides_support_an_independent_speech_installation(self):
+        with patch.dict(
+            "voice.os.environ",
+            {
+                "WEILINK_VOICE_RUNTIME": "C:/portable-tts",
+                "WEILINK_VOICE_SCRIPT": "C:/portable-skills/speech.py",
+            },
+        ):
+            command = speech_command()
+        self.assertEqual(
+            Path(command[0]), Path("C:/portable-tts/.venv/Scripts/python.exe")
+        )
+        self.assertEqual(Path(command[3]), Path("C:/portable-skills/speech.py"))
+
+    def test_codex_home_override_locates_the_installed_skill(self):
+        with patch.dict(
+            "voice.os.environ",
+            {
+                "WEILINK_VOICE_SCRIPT": "",
+                "CODEX_HOME": "C:/portable-codex",
+            },
+        ):
+            self.assertEqual(
+                Path(speech_command()[3]),
+                Path("C:/portable-codex/skills/edge-voice/scripts/speech.py"),
+            )
 
 
 class VoiceInputTests(unittest.TestCase):
