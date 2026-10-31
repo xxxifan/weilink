@@ -94,7 +94,10 @@ def main() -> None:
         state.close()
     text = prepared["text"]
     if args.prepare:
-        print(json.dumps(prepared, ensure_ascii=False))
+        # This JSON crosses Windows shells and UTF-8 tool readers. Emitting
+        # only ASCII preserves Chinese/emoji even when stdout defaults to GBK;
+        # JSON decoding restores the original Unicode before the MCP send.
+        print(json.dumps(prepared, ensure_ascii=True))
         return
     request_id = args.id or str(uuid.uuid4())
     key = hashlib.sha256(request_id.encode()).hexdigest()
