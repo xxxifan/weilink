@@ -475,20 +475,25 @@ class BatchBridgeTests(unittest.IsolatedAsyncioTestCase):
         await self.ready()
         self.assertEqual(self.state.next_reply()["text"], "结合图片后的完整答复")
 
-    async def test_unknown_steer_outcome_is_not_replayed_and_stops_old_turn(self):
+    async def test_unknown_steer_outcome_asks_before_replay_and_stops_on_cancel(self):
         self.rpc.steer_failure = "unknown"
         await self.receive(1, "这是")
         self.worker()
         await self.until(lambda: self.calls("turn/start"))
         await self.receive(2, media=MessageType.IMAGE)
-        await self.ready()
+        await self.until(lambda: self.bridge.recovery_request is not None)
         self.assertEqual(len(self.calls("turn/start")), 1)
         self.assertEqual(len(self.calls("turn/steer")), 1)
+        self.assertFalse(self.calls("turn/interrupt"))
+        await self.receive(3, "/stop")
+        await self.until(lambda: self.state.batch("1")["status"] == "sealed")
         self.assertEqual(len(self.calls("turn/interrupt")), 1)
         self.assertTrue(
             all(
-                row[0] == "failed"
-                for row in self.state.db.execute("SELECT status FROM inbox")
+                row[0] == "done"
+                for row in self.state.db.execute(
+                    "SELECT status FROM inbox WHERE batch_id='1'"
+                )
             )
         )
 

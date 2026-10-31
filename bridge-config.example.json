@@ -7,6 +7,13 @@
   "turn_timeout_seconds": 3600,
   "model": "",
   "reasoning_effort": "",
+  "fallback_models": [
+    {
+      "name": "6.1sol",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium"
+    }
+  ],
   "default_persona": "deepseek",
   "animated_meme_mode": "file"
 }

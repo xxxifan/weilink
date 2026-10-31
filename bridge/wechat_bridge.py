@@ -10,6 +10,7 @@ import logging
 import os
 import re
 import time
+import uuid
 from datetime import datetime
 from pathlib import Path
 
@@ -25,6 +26,7 @@ from generated_images import IMAGE_TYPES, GeneratedImages
 from incoming_images import IncomingImageError, IncomingImages
 from incoming_videos import IncomingVideoError, IncomingVideos
 from message_format import WECHAT_STYLE, action, card, copy_text, help_text
+from model_recovery import error_summary
 from personas import Personas
 from quote_images import QuotedImages
 from quoted_messages import QuotedWeiLink, message_prompt, message_reference
@@ -78,6 +80,42 @@ class Bridge:
         incoming_videos=None,
     ) -> None:
         self.config = config
+        self.recovery_request: dict | None = None
+        models = config.get("fallback_models", [])
+        if not isinstance(models, list):
+            raise ValueError("fallback_models must be a list of configuration objects")
+        normalized_models = []
+        for entry in models:
+            if isinstance(entry, str):
+                entry = {"name": entry, "model": entry, "reasoning_effort": ""}
+            if not isinstance(entry, dict):
+                raise ValueError(
+                    "Each fallback_models entry needs name, model, and optional reasoning_effort"
+                )
+            model = entry.get("model")
+            name = entry.get("name") or model
+            effort = entry.get("reasoning_effort", "")
+            if (
+                not isinstance(model, str)
+                or not model.strip()
+                or len(model) > 160
+                or any(char.isspace() for char in model)
+                or not isinstance(name, str)
+                or not name.strip()
+                or any(char.isspace() for char in name)
+                or not isinstance(effort, str)
+            ):
+                raise ValueError(
+                    "Each fallback_models entry needs name, model, and optional reasoning_effort"
+                )
+            normalized_models.append(
+                {
+                    "name": name.strip(),
+                    "model": model.strip(),
+                    "reasoning_effort": effort.strip(),
+                }
+            )
+        self.fallback_models = normalized_models
         self.state = state
         self.task_monitor = task_monitor or TaskMonitor()
         self.sender = sender or send_text
@@ -109,7 +147,12 @@ class Bridge:
         self.delivery = DeliveryStatus(status_transport or StatusTransport(config))
 
     def typing_needed(self) -> bool:
-        if self.stopping.is_set() or not self.connected or self.requests:
+        if (
+            self.stopping.is_set()
+            or not self.connected
+            or self.requests
+            or self.recovery_request
+        ):
             return False
         counts = self.state.outgoing_counts()
         return bool(
@@ -121,7 +164,7 @@ class Bridge:
             or counts["sending"]
         )
 
-    def thread_model_settings(self) -> dict:
+    def thread_model_settings(self, thread_id: str | None = None) -> dict:
         settings = {}
         if self.config.get("model"):
             settings["model"] = self.config["model"]
@@ -129,14 +172,21 @@ class Bridge:
             settings["config"] = {
                 "model_reasoning_effort": self.config["reasoning_effort"]
             }
+        saved = self.state.get(f"model_settings:{thread_id}", {}) if thread_id else {}
+        if saved.get("model"):
+            settings["model"] = saved["model"]
+        if saved.get("effort"):
+            settings["config"] = {"model_reasoning_effort": saved["effort"]}
         return settings
 
-    def turn_model_settings(self) -> dict:
+    def turn_model_settings(self, thread_id: str | None = None) -> dict:
         settings = {}
         if self.config.get("model"):
             settings["model"] = self.config["model"]
         if self.config.get("reasoning_effort"):
             settings["effort"] = self.config["reasoning_effort"]
+        if thread_id:
+            settings.update(self.state.get(f"model_settings:{thread_id}", {}))
         return settings
 
     def reply(self, key: str, text: str) -> None:
@@ -192,7 +242,7 @@ class Bridge:
                     "developerInstructions": self.personas.instructions(
                         self.thread_persona(thread_id), CHAT_INSTRUCTIONS
                     ),
-                    **self.thread_model_settings(),
+                    **self.thread_model_settings(thread_id),
                 },
             )
             self.remember_rollout(thread_id, result)
@@ -315,6 +365,8 @@ class Bridge:
                 )
             elif command == "/status":
                 self.reply(key, self.status_text())
+            elif command == "/model":
+                self.choose_recovery(key, command, argument)
             elif command == "/persona":
                 thread_id = self.state.get("active_thread")
                 if not argument.strip():
@@ -467,17 +519,27 @@ class Bridge:
                         key, f"已切换到：{row['title']}（{row['thread_id'][:8]}）。"
                     )
             elif command == "/stop":
+                if self.recovery_request:
+                    pending = self.recovery_request
+                    self.state.stop_batch(pending["batch"].id)
+                    if self.active:
+                        self.active["stop_requested"] = True
+                    if not pending["choice"].done():
+                        pending["choice"].set_result(None)
+                    self.reply(key, "已取消本次恢复，不再重试或换模型。")
+                    return
                 if self.active and self.active.get("turn_id"):
                     self.active["stop_requested"] = True
                     if self.active.get("batch_id"):
                         self.state.stop_batch(self.active["batch_id"])
-                    await self.rpc.request(
-                        "turn/interrupt",
-                        {
-                            "threadId": self.active["thread_id"],
-                            "turnId": self.active["turn_id"],
-                        },
-                    )
+                    if not self.active.get("done") or not self.active["done"].done():
+                        await self.rpc.request(
+                            "turn/interrupt",
+                            {
+                                "threadId": self.active["thread_id"],
+                                "turnId": self.active["turn_id"],
+                            },
+                        )
                     self.reply(key, "已请求停止当前处理。")
                 else:
                     self.reply(key, "目前没有正在处理的请求。")
@@ -582,6 +644,12 @@ class Bridge:
             lines.append(f"微信状态通知暂不可用：{error}（不影响正文处理）")
         if self.config.get("model"):
             lines.append(f"模型：{self.config['model']}")
+        if self.active:
+            model = self.active.get("model_settings", {}).get("model")
+            if model:
+                lines.append(f"本批模型：{model}")
+        if self.recovery_request:
+            lines.append(self.recovery_request["notice"])
         if self.config.get("reasoning_effort"):
             lines.append(f"思考程度：{self.config['reasoning_effort']}")
         if self.poll_error:
@@ -633,8 +701,13 @@ class Bridge:
             return
         if event_turn:
             active["turn_id"] = event_turn
+            active["accepted"] = True
         if method == "turn/started":
             active["turn_id"] = params["turn"]["id"]
+        elif method == "error":
+            # willRetry errors are informational. Never prompt or submit a new
+            # model request before turn/completed confirms the terminal outcome.
+            active["error"] = params.get("error")
         elif method == "item/completed":
             item = params.get("item", {})
             if item.get("type") in {"agentMessage", *IMAGE_TYPES}:
@@ -645,6 +718,8 @@ class Bridge:
                 if item.get("type") in {"agentMessage", *IMAGE_TYPES}:
                     active["items"][item["id"]] = item
             if not active["done"].done():
+                if not turn.get("error") and active.get("error"):
+                    turn = dict(turn, error=active["error"])
                 active["done"].set_result(turn)
 
     async def on_request(self, request: dict) -> None:
@@ -851,11 +926,15 @@ class Bridge:
             for item in messages
             if item.get("phase") == "final_answer"
         ]
-        if self.active.get("steered") and final:
+        if (self.active or {}).get("steered") and final:
             final = final[-1:]
         text = "\n\n".join(final or [item.get("text", "") for item in messages]).strip()
-        text, prefer_voice = reply_mode(text, self.active.get("voice_reply", False))
-        if explicit_text_reply(job["text"]) or self.active.get("force_text_reply"):
+        text, prefer_voice = reply_mode(
+            text, (self.active or {}).get("voice_reply", False)
+        )
+        if explicit_text_reply(job["text"]) or (self.active or {}).get(
+            "force_text_reply"
+        ):
             prefer_voice = False
         voice_paths = []
         image_paths, image_failed = await asyncio.to_thread(
@@ -1013,6 +1092,101 @@ class Bridge:
                 self.active = None
                 self.requests.clear()
 
+    async def request_recovery(
+        self, batch: MessageBatch, error: Exception | dict
+    ) -> dict | None:
+        if self.stopping.is_set() or (batch.current or {}).get("stop_requested"):
+            return None
+        alias = "r" + uuid.uuid4().hex[:8]
+        model = batch.model_settings.get("model") or "沿用 Codex 设置"
+        choices = [
+            action(f"使用 {entry['name']}", f"/model {entry['name']}")
+            for entry in self.fallback_models
+        ]
+        choices.append(action("停止本次请求", "/stop"))
+        notice = card(
+            f"模型请求出错 · {alias}",
+            f"当前模型：{model}\n\n{error_summary(error)}",
+            "本次处理已暂停。请选择已配置的备用模型，或停止本次请求。WeiLink 不会自动重试或切换；恢复时会先确认上次请求已停止，并继续尚未完成的工作。",
+            *choices,
+        )
+        pending = {
+            "alias": alias,
+            "batch": batch,
+            "notice": notice,
+            "choice": asyncio.get_running_loop().create_future(),
+        }
+        self.recovery_request = pending
+        self.reply(f"recovery:{alias}", notice)
+        log.info("Model request paused for user recovery: %s", alias)
+        try:
+            while not self.stopping.is_set():
+                if (batch.current or {}).get("stop_requested"):
+                    return None
+                try:
+                    return await asyncio.wait_for(
+                        asyncio.shield(pending["choice"]), 0.1
+                    )
+                except TimeoutError:
+                    pass
+            return None
+        finally:
+            if self.recovery_request is pending:
+                self.recovery_request = None
+            if not pending["choice"].done():
+                pending["choice"].cancel()
+
+    def choose_recovery(self, key: str, command: str, argument: str) -> None:
+        values = argument.split()
+        pending = self.recovery_request
+        # Exact, expiring IDs keep a delayed/repeated command from restarting a
+        # later failure. Only direct owner commands reach this handler.
+        if not pending or not values or pending["choice"].done():
+            self.reply(
+                key, "未找到这个待处理错误，编号可能已失效。请查看最新错误通知或状态。"
+            )
+            return
+        direct_name = len(values) == 1 and any(
+            entry["name"].casefold() == values[0].casefold()
+            for entry in self.fallback_models
+        )
+        legacy_alias = (
+            len(values) == 2 and values[0] == pending["alias"] and values[1].isdecimal()
+        )
+        if not direct_name and not legacy_alias:
+            self.reply(
+                key,
+                "请直接填写错误通知中列出的配置名称，例如 /model 6.1sol。",
+            )
+            return
+        selected = None
+        if len(values) == 1:
+            selected = next(
+                (
+                    entry
+                    for entry in self.fallback_models
+                    if entry["name"].casefold() == values[0].casefold()
+                ),
+                None,
+            )
+        elif (
+            len(values) == 2 and values[0] == pending["alias"] and values[1].isdecimal()
+        ):
+            index = int(values[1]) - 1
+            if 0 <= index < len(self.fallback_models):
+                selected = self.fallback_models[index]
+        if selected is None:
+            self.reply(
+                key,
+                "请直接填写错误通知中列出的配置名称，例如 /model 6.1sol。",
+            )
+            return
+        choice = {"model": selected["model"]}
+        if selected.get("reasoning_effort"):
+            choice["effort"] = selected["reasoning_effort"]
+        pending["choice"].set_result(choice)
+        self.reply(key, f"已选择{selected['name']}，将先检查旧请求状态。")
+
     async def outgoing_worker(self) -> None:
         while not self.stopping.is_set():
             item = self.state.next_reply()
@@ -1132,7 +1306,8 @@ class Bridge:
                 or self.active is not None
                 or bool(self.voice_processing),
                 "queued": self.state.queued_count(),
-                "waiting": list(self.requests),
+                "waiting": list(self.requests)
+                + ([self.recovery_request["alias"]] if self.recovery_request else []),
                 "last_poll": self.last_poll,
                 "poll_error": self.poll_error,
                 "model": self.config.get("model"),
