@@ -297,10 +297,16 @@ class PersonaBridgeTests(unittest.IsolatedAsyncioTestCase):
                     break
                 await asyncio.sleep(0.01)
             self.assertEqual(status, "done")
-            return self.state.db.execute(
+            rows = self.state.db.execute(
                 "SELECT * FROM outbox WHERE dedupe_key LIKE ? ORDER BY id",
                 (f"reply:{message_id}:%",),
             ).fetchall()
+            # These are separate chats after delivery, rather than one batch
+            # of consecutive messages arriving before the first reply sends.
+            for row in rows:
+                self.assertTrue(self.state.begin_reply(row["id"]))
+                self.state.reply_state(row["id"], "sent")
+            return rows
 
         try:
             first = await ask("auto-1")

@@ -289,6 +289,9 @@ class ImageDeliveryTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_later_text_turn_does_not_resend_historical_images(self):
         await self.ask()
+        self.bridge.image_sender = lambda *_: True
+        self.bridge.sender = lambda *_: True
+        await self.send_pending()
         self.rpc.images = []
         self.rpc.final_text = "你好"
         rows = await self.ask("m2")

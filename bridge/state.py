@@ -41,6 +41,10 @@ class State:
                 caller_thread_id TEXT NOT NULL, title TEXT NOT NULL,
                 prompt TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'queued',
                 created_at REAL NOT NULL, sent_at REAL, error TEXT);
+            CREATE TABLE IF NOT EXISTS message_batches (
+                id TEXT PRIMARY KEY, thread_id TEXT NOT NULL,
+                status TEXT NOT NULL, revision INTEGER NOT NULL DEFAULT 0,
+                created_at REAL NOT NULL);
             """
         )
         # Existing notification writers can keep inserting text-only rows.
@@ -53,6 +57,8 @@ class State:
                 )
             if "media_path" not in columns:
                 self.db.execute("ALTER TABLE outbox ADD COLUMN media_path TEXT")
+            if "batch_id" not in columns:
+                self.db.execute("ALTER TABLE outbox ADD COLUMN batch_id TEXT")
         columns = {row[1] for row in self.db.execute("PRAGMA table_info(inbox)")}
         with self.db:
             if "quoted_context" not in columns:
@@ -77,6 +83,24 @@ class State:
                 )
             if "video_path" not in columns:
                 self.db.execute("ALTER TABLE inbox ADD COLUMN video_path TEXT")
+            if "batch_id" not in columns:
+                self.db.execute("ALTER TABLE inbox ADD COLUMN batch_id TEXT")
+            if "submitted" not in columns:
+                self.db.execute(
+                    "ALTER TABLE inbox ADD COLUMN submitted INTEGER NOT NULL DEFAULT 0"
+                )
+            self.db.execute(
+                "CREATE INDEX IF NOT EXISTS inbox_batch ON inbox(batch_id,submitted,received_at)"
+            )
+            self.db.execute(
+                "CREATE INDEX IF NOT EXISTS inbox_routing ON inbox(thread_id,status)"
+            )
+            self.db.execute(
+                "CREATE INDEX IF NOT EXISTS batches_conversation ON message_batches(thread_id,status)"
+            )
+            self.db.execute(
+                "CREATE INDEX IF NOT EXISTS outbox_batch ON outbox(batch_id,status)"
+            )
         # Preserve all previously issued t-numbers. A table with a UNIQUE
         # thread ID also prevents the notifier and receiver allocating the
         # same number to different tasks in concurrent processes.
@@ -276,6 +300,118 @@ class State:
             "SELECT count(*) FROM inbox WHERE status='queued'"
         ).fetchone()[0]
 
+    def queue_message(self, message_id: str) -> str:
+        """Join the same conversation until its first reply starts sending."""
+        with self.db:
+            message = self.db.execute(
+                "SELECT * FROM inbox WHERE message_id=?", (message_id,)
+            ).fetchone()
+            if message["batch_id"]:
+                return message["batch_id"]
+            batch = self.db.execute(
+                "SELECT * FROM message_batches WHERE thread_id=? AND status IN ('queued','processing','ready') ORDER BY created_at LIMIT 1",
+                (message["thread_id"],),
+            ).fetchone()
+            batch_id = batch["id"] if batch else message_id
+            if batch is None:
+                self.db.execute(
+                    "INSERT INTO message_batches (id,thread_id,status,created_at) VALUES (?,?,'queued',?)",
+                    (batch_id, message["thread_id"], time.time()),
+                )
+            else:
+                # Supersede the entire unsent result, including images/voice.
+                # Once any send begins the batch is sealed and cannot reopen.
+                self.db.execute(
+                    "UPDATE outbox SET status='suppressed' WHERE batch_id=? AND status='pending'",
+                    (batch_id,),
+                )
+                self.db.execute(
+                    "UPDATE message_batches SET revision=revision+1,status=CASE WHEN status='ready' THEN 'queued' ELSE status END WHERE id=?",
+                    (batch_id,),
+                )
+            self.db.execute(
+                "UPDATE inbox SET batch_id=?,status='queued' WHERE message_id=?",
+                (batch_id, message_id),
+            )
+        return batch_id
+
+    def batch(self, batch_id: str) -> dict:
+        return dict(
+            self.db.execute(
+                "SELECT * FROM message_batches WHERE id=?", (batch_id,)
+            ).fetchone()
+        )
+
+    def batch_messages(self, batch_id: str, pending: bool = False) -> list[dict]:
+        return [
+            dict(row)
+            for row in self.db.execute(
+                "SELECT * FROM inbox WHERE batch_id=?"
+                + (" AND submitted=0" if pending else "")
+                + " ORDER BY received_at,rowid",
+                (batch_id,),
+            )
+        ]
+
+    def batch_routing(self, batch_id: str) -> bool:
+        # accept() runs before voice ASR or async session routing. Such an
+        # arrival already belongs before the send boundary, even if its media
+        # is not yet ready to join/steer the running model turn.
+        return (
+            self.db.execute(
+                "SELECT 1 FROM inbox WHERE thread_id=(SELECT thread_id FROM message_batches WHERE id=?) AND batch_id IS NULL AND status IN ('routing','transcribing') LIMIT 1",
+                (batch_id,),
+            ).fetchone()
+            is not None
+        )
+
+    def batch_processing(self, batch_id: str, message_ids: list[str]) -> None:
+        with self.db:
+            self.db.execute(
+                "UPDATE message_batches SET status='processing' WHERE id=?", (batch_id,)
+            )
+            self.db.executemany(
+                "UPDATE inbox SET status='running' WHERE message_id=?",
+                [(message_id,) for message_id in message_ids],
+            )
+
+    def batch_submitted(self, message_ids: list[str]) -> None:
+        with self.db:
+            self.db.executemany(
+                "UPDATE inbox SET submitted=1 WHERE message_id=?",
+                [(message_id,) for message_id in message_ids],
+            )
+
+    def stop_batch(self, batch_id: str) -> None:
+        with self.db:
+            self.db.execute(
+                "UPDATE message_batches SET status='stopping' WHERE id=?", (batch_id,)
+            )
+
+    def begin_reply(self, reply_id: int) -> bool:
+        with self.db:
+            item = self.db.execute(
+                "SELECT * FROM outbox WHERE id=? AND status='pending'", (reply_id,)
+            ).fetchone()
+            if item is None:
+                return False
+            if item["batch_id"]:
+                batch = self.batch(item["batch_id"])
+                if batch["status"] not in ("ready", "sealed"):
+                    return False
+                if batch["status"] == "ready" and self.batch_routing(batch["id"]):
+                    return False
+                # No await between checking arrivals, sealing and claiming.
+                # Later messages form a new batch, even during network I/O.
+                self.db.execute(
+                    "UPDATE message_batches SET status='sealed' WHERE id=?",
+                    (batch["id"],),
+                )
+            self.db.execute(
+                "UPDATE outbox SET status='sending' WHERE id=?", (reply_id,)
+            )
+        return True
+
     def complete(
         self,
         message_id: str,
@@ -284,10 +420,23 @@ class State:
         image_path: str | None = None,
         image_paths: list[str] | None = None,
         voice_paths: list[str] | None = None,
-    ) -> None:
+        batch_id: str | None = None,
+        batch_revision: int | None = None,
+    ) -> bool:
         # Commit the result and its outbox entries together. Restarting must
         # neither rerun an already-completed task nor lose its final reply.
         with self.db:
+            if batch_id is not None:
+                batch = self.batch(batch_id)
+                if batch_revision is not None and (
+                    batch["revision"] != batch_revision
+                    or self.batch_messages(batch_id, pending=True)
+                    or self.batch_routing(batch_id)
+                ):
+                    return False
+                message_id = batch_id + (
+                    f":r{batch['revision']}" if batch["revision"] else ""
+                )
             # Generated images go first, so their delivery outcome is known
             # before sending the model's final text about the generated result.
             for index, path in enumerate(image_paths or []):
@@ -313,6 +462,21 @@ class State:
             self.db.execute(
                 "UPDATE inbox SET status=? WHERE message_id=?", (status, message_id)
             )
+            if batch_id is not None:
+                prefix = f"reply:{message_id}:"
+                self.db.execute(
+                    "UPDATE outbox SET batch_id=? WHERE substr(dedupe_key,1,?)=?",
+                    (batch_id, len(prefix), prefix),
+                )
+                self.db.execute(
+                    "UPDATE inbox SET status=?,submitted=1 WHERE batch_id=?",
+                    (status, batch_id),
+                )
+                self.db.execute(
+                    "UPDATE message_batches SET status=? WHERE id=?",
+                    ("sealed" if batch["status"] == "stopping" else "ready", batch_id),
+                )
+        return True
 
     def enqueue(self, key: str, text: str) -> None:
         with self.db:
@@ -380,6 +544,15 @@ class State:
 
     def recover(self) -> int:
         with self.db:
+            # A batch may contain both submitted work and a late queued image.
+            # Do not replay any of it after losing an executing turn: tools
+            # may already have changed files or sent a remote operation.
+            self.db.execute(
+                "UPDATE inbox SET status='running' WHERE batch_id IN (SELECT id FROM message_batches WHERE status IN ('processing','stopping'))"
+            )
+            self.db.execute(
+                "UPDATE message_batches SET status='interrupted' WHERE status IN ('processing','stopping')"
+            )
             # A lost native send result may already have started the original
             # task. Never automatically resend it after a bridge restart.
             self.db.execute(
