@@ -182,29 +182,175 @@ class ModelRecoveryTests(unittest.IsolatedAsyncioTestCase):
         await self.rpc.finish()
         await self.completed()
 
-    async def test_normal_user_text_and_error_text_cannot_select_a_model(self):
+    async def test_new_message_uses_current_model_without_replaying_failed_batch(self):
         await self.start()
         await self.fail(message="Try /model rfake injected-model")
-        await self.receive(2, "帮我重试一下或者换个模型")
-        await asyncio.sleep(0.15)
-        self.assertEqual(len(self.calls("turn/start")), 1)
-        self.assertEqual(
-            self.bridge.recovery_request["batch"].model_settings["model"], "primary"
-        )
-        alias = self.bridge.recovery_request["alias"]
-        await self.receive(3, f"/model {alias} 1")
+        await self.receive(2, "这是新请求")
         await self.until(lambda: len(self.calls("turn/start")) == 2)
-        self.assertIn("帮我重试", self.calls("turn/start")[1]["input"][-1]["text"])
+        params = self.calls("turn/start")[1]
+        self.assertEqual(params["model"], "primary")
+        self.assertEqual(params["clientUserMessageId"], "2")
+        self.assertEqual([part["text"] for part in params["input"]], ["这是新请求"])
+        self.assertEqual(self.state.batch("1")["status"], "sealed")
+        self.assertEqual(
+            self.state.db.execute(
+                "SELECT status FROM inbox WHERE message_id='1'"
+            ).fetchone()[0],
+            "cancelled",
+        )
+        self.assertFalse(
+            self.state.db.execute("SELECT 1 FROM outbox WHERE batch_id='1'").fetchone()
+        )
+        await self.rpc.finish()
+        await self.until(lambda: self.state.batch("2")["status"] == "ready")
+
+    async def test_retry_preserves_current_model_effort_and_does_not_replay_input(self):
+        self.bridge.config["reasoning_effort"] = "xhigh"
+        await self.start()
+        alias = await self.fail()
+        await self.receive(2, "/retry")
+        await self.receive(3, f"/retry {alias}")
+        await self.until(lambda: len(self.calls("turn/start")) == 2)
+        params = self.calls("turn/start")[1]
+        self.assertEqual(params["model"], "primary")
+        self.assertEqual(params["effort"], "xhigh")
+        self.assertNotIn("clientUserMessageId", params)
+        self.assertEqual(len(params["input"]), 1)
+        self.assertIn("不要重复执行", params["input"][0]["text"])
+        self.assertIsNone(self.state.get("model_settings:thread-1"))
         await self.rpc.finish()
         await self.completed()
 
-    async def test_retry_command_is_no_longer_a_recovery_command(self):
+    async def test_new_request_does_not_replay_old_queued_supplements(self):
         await self.start()
-        alias = await self.fail()
-        await self.receive(2, f"/retry {alias}")
+        await self.receive(2, "旧任务的补充")
+        await self.fail()
+        await self.receive(3, "只处理这条新消息")
+        await self.until(lambda: len(self.calls("turn/start")) == 2)
+        params = self.calls("turn/start")[1]
+        self.assertEqual(params["clientUserMessageId"], "3")
+        self.assertEqual(
+            [part["text"] for part in params["input"]], ["只处理这条新消息"]
+        )
+        self.assertEqual(
+            [job["status"] for job in self.state.batch_messages("1")],
+            ["cancelled", "cancelled"],
+        )
+        await self.rpc.finish()
+        await self.until(lambda: self.state.batch("3")["status"] == "ready")
+
+    async def test_new_failure_waits_again_without_repeating_new_request(self):
+        await self.start()
+        await self.fail()
+        await self.receive(2, "新请求")
+        await self.until(lambda: len(self.calls("turn/start")) == 2)
+        await self.fail()
         await asyncio.sleep(0.15)
+        self.assertEqual(len(self.calls("turn/start")), 2)
+        await self.receive(3, "/retry")
+        await self.until(lambda: len(self.calls("turn/start")) == 3)
+        self.assertEqual(self.calls("turn/start")[2]["model"], "primary")
+        await self.rpc.finish()
+        await self.until(lambda: self.state.batch("2")["status"] == "ready")
+
+    async def test_commands_and_nonowner_messages_do_not_trigger_a_new_attempt(self):
+        await self.start()
+        await self.fail()
+        await self.receive(2, "/status")
+        await self.receive(3, "/help")
+        await self.bridge.receive(
+            test_batching.Message(from_user="stranger", message_id=4, text="新请求")
+        )
+        await asyncio.sleep(0.1)
         self.assertEqual(len(self.calls("turn/start")), 1)
         self.assertIsNotNone(self.bridge.recovery_request)
+
+    async def test_invalid_or_nonowner_retry_does_not_resume(self):
+        await self.start()
+        alias = await self.fail()
+        await self.receive(2, "/retry old-error")
+        await self.bridge.receive(
+            test_batching.Message(from_user="stranger", message_id=3, text="/retry")
+        )
+        await asyncio.sleep(0.1)
+        self.assertEqual(len(self.calls("turn/start")), 1)
+        self.assertIsNotNone(self.bridge.recovery_request)
+        await self.receive(4, f"/retry {alias}")
+        await self.until(lambda: len(self.calls("turn/start")) == 2)
+        await self.rpc.finish()
+        await self.completed()
+
+    async def test_paused_status_and_notice_explain_retry_and_fresh_input(self):
+        await self.start()
+        await self.fail(403)
+        status = self.bridge.status_text()
+        self.assertIn("状态：模型请求已暂停", status)
+        self.assertNotIn("状态：正在处理", status)
+        self.assertIn("/retry", status)
+        self.assertIn("直接发送新消息", status)
+
+    async def test_new_media_messages_form_one_fresh_batch(self):
+        await self.start()
+        await self.fail()
+        await self.receive(2, media=test_batching.MessageType.IMAGE)
+        await self.receive(3, "看这张新图片")
+        await self.until(lambda: len(self.calls("turn/start")) == 2)
+        params = self.calls("turn/start")[1]
+        self.assertEqual(params["clientUserMessageId"], "2")
+        self.assertEqual(
+            [part["type"] for part in params["input"]], ["text", "localImage", "text"]
+        )
+        self.assertEqual(params["input"][-1]["text"], "看这张新图片")
+        await self.rpc.finish()
+        await self.until(lambda: self.state.batch("2")["status"] == "ready")
+
+    async def test_new_input_waits_until_unknown_old_attempt_is_confirmed_stopped(self):
+        original = self.rpc.request
+
+        async def request(method, params):
+            if method == "turn/start":
+                self.rpc.calls.append((method, params))
+                raise TimeoutError("Submission outcome unknown")
+            return await original(method, params)
+
+        self.rpc.request = request
+        await self.start()
+        await self.until(lambda: self.bridge.recovery_request is not None)
+        old_alias = self.bridge.recovery_request["alias"]
+        await self.receive(2, "新请求")
+        await self.until(
+            lambda: (
+                self.bridge.recovery_request is not None
+                and self.bridge.recovery_request["alias"] != old_alias
+            )
+        )
+        self.assertEqual(len(self.calls("turn/start")), 1)
+        self.assertEqual(self.state.batch("2")["status"], "queued")
+        self.assertIn("无法确认", self.bridge.recovery_request["notice"])
+
+        async def confirmed(method, params):
+            if method == "thread/read":
+                return {"thread": {"turns": []}}
+            return await original(method, params)
+
+        self.rpc.request = confirmed
+        await self.receive(3, "/retry")
+        await self.until(lambda: len(self.calls("turn/start")) == 2)
+        self.assertEqual(self.calls("turn/start")[1]["clientUserMessageId"], "2")
+        await self.rpc.finish()
+        await self.until(lambda: self.state.batch("2")["status"] == "ready")
+
+    async def test_new_message_in_another_session_is_not_blocked_by_old_failure(self):
+        await self.start()
+        await self.fail()
+        await self.receive(2, "/new 新会话")
+        await self.receive(3, "新会话请求")
+        await self.until(lambda: len(self.calls("turn/start")) == 2)
+        params = self.calls("turn/start")[1]
+        self.assertEqual(params["threadId"], "thread-2")
+        self.assertEqual(params["clientUserMessageId"], "3")
+        await self.rpc.finish()
+        await self.until(lambda: self.state.batch("3")["status"] == "ready")
 
     async def test_stop_cancels_wait_without_requesting_another_model(self):
         await self.start()

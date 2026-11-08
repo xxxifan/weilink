@@ -13,6 +13,7 @@ $running = Get-Process -Id $snapshot.pid -ErrorAction SilentlyContinue
     ReasoningEffort = $snapshot.reasoning_effort
     ActiveThread = $snapshot.active_thread
     Processing = $snapshot.processing
+    Paused = $snapshot.paused
     QueuedMessages = $snapshot.queued
     WaitingRequests = ($snapshot.waiting -join ', ')
     ReceiveError = $snapshot.poll_error

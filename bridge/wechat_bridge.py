@@ -337,6 +337,14 @@ class Bridge:
             return
         thread_id = await self.ensure_thread(self.state.get("active_thread"))
         self.state.bind(message_id, thread_id)
+        pending = self.recovery_request
+        if pending and not pending["choice"].done():
+            # A new owner message authorizes a fresh attempt on the same model.
+            # Close the failed batch before queueing so old supplements cannot
+            # absorb the new request. The worker settles the old turn first.
+            self.state.stop_batch(pending["batch"].id)
+            pending["batch"].replacement_requested = True
+            pending["choice"].set_result({})
         self.state.queue_message(message_id)
         if waiting:
             # requestUserInput answers only carry strings. Queue visual media
@@ -365,7 +373,7 @@ class Bridge:
                 )
             elif command == "/status":
                 self.reply(key, self.status_text())
-            elif command == "/model":
+            elif command in ("/retry", "/model"):
                 self.choose_recovery(key, command, argument)
             elif command == "/persona":
                 thread_id = self.state.get("active_thread")
@@ -618,7 +626,13 @@ class Bridge:
         )
         title = f"{current['title']}（{active_id[:8]}）" if current else "尚未创建"
         status = (
-            "等待你的确认" if self.requests else ("正在处理" if self.active else "空闲")
+            "模型请求已暂停，等待重试或新消息"
+            if self.recovery_request
+            else "等待你的确认"
+            if self.requests
+            else "正在处理"
+            if self.active or self.processing_message or self.voice_processing
+            else "空闲"
         )
         lines = [
             f"当前微信会话：{title}",
@@ -916,6 +930,16 @@ class Bridge:
 
     async def finish_batch(self, batch_id: str, result: dict, job: dict) -> bool:
         message_id = batch_id
+        if result.get("replaced"):
+            # A fresh message supersedes the failed batch without publishing a
+            # stale draft or an extra stop acknowledgement before its reply.
+            return self.state.complete(
+                message_id,
+                [],
+                status="cancelled",
+                batch_id=batch_id,
+                batch_revision=result["revision"],
+            )
         turn, items = result["turn"], result["items"]
         thread_id = result["thread_id"]
         rollout_path, rollout_offset = result["rollout_path"], result["rollout_offset"]
@@ -1099,7 +1123,7 @@ class Bridge:
             return None
         alias = "r" + uuid.uuid4().hex[:8]
         model = batch.model_settings.get("model") or "沿用 Codex 设置"
-        choices = [
+        choices = [action("使用当前模型重试本次请求", "/retry")] + [
             action(f"使用 {entry['name']}", f"/model {entry['name']}")
             for entry in self.fallback_models
         ]
@@ -1107,7 +1131,7 @@ class Bridge:
         notice = card(
             f"模型请求出错 · {alias}",
             f"当前模型：{model}\n\n{error_summary(error)}",
-            "本次处理已暂停。请选择已配置的备用模型，或停止本次请求。WeiLink 不会自动重试或切换；恢复时会先确认上次请求已停止，并继续尚未完成的工作。",
+            "本次处理已暂停。模型恢复后可用 /retry 继续本次请求；也可直接发送新消息，结束旧批次并用当前模型处理新内容。还可选择备用模型或停止本次请求。WeiLink 不会自行重试或切换，发起请求前会先确认旧请求已结束。",
             *choices,
         )
         pending = {
@@ -1141,10 +1165,21 @@ class Bridge:
         pending = self.recovery_request
         # Exact, expiring IDs keep a delayed/repeated command from restarting a
         # later failure. Only direct owner commands reach this handler.
-        if not pending or not values or pending["choice"].done():
+        if not pending or pending["choice"].done():
             self.reply(
                 key, "未找到这个待处理错误，编号可能已失效。请查看最新错误通知或状态。"
             )
+            return
+        if command == "/retry":
+            if values and values != [pending["alias"]]:
+                self.reply(
+                    key, "错误编号可能已失效，请查看最新错误通知或直接使用 /retry。"
+                )
+                return
+            # An empty override preserves this batch's model and effort,
+            # including settings inherited from the current conversation.
+            pending["choice"].set_result({})
+            self.reply(key, "将先检查旧请求状态，再使用当前模型继续。")
             return
         direct_name = len(values) == 1 and any(
             entry["name"].casefold() == values[0].casefold()
@@ -1302,9 +1337,13 @@ class Bridge:
                 "updated_at": time.time(),
                 "active_thread": self.state.get("active_thread"),
                 "codex_connected": self.connected,
-                "processing": self.processing_message
-                or self.active is not None
-                or bool(self.voice_processing),
+                "processing": not self.recovery_request
+                and (
+                    self.processing_message
+                    or self.active is not None
+                    or bool(self.voice_processing)
+                ),
+                "paused": self.recovery_request is not None,
                 "queued": self.state.queued_count(),
                 "waiting": list(self.requests)
                 + ([self.recovery_request["alias"]] if self.recovery_request else []),

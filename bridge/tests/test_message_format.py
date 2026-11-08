@@ -39,6 +39,7 @@ class FormatTests(unittest.TestCase):
         self.assertIn("/approve 编号", commands)
         self.assertIn("/deny 编号", commands)
         self.assertIn("/tasks running", commands)
+        self.assertIn("/retry", commands)
         self.assertTrue(
             all(command.startswith("/") and "\n" not in command for command in commands)
         )

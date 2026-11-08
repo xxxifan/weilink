@@ -18,6 +18,7 @@ class MessageBatch:
         self.id = batch_id
         self.thread_id = self.state.batch(batch_id)["thread_id"]
         self.current = None
+        self.replacement_requested = False
         self.model_settings = bridge.turn_model_settings(self.thread_id)
         self.rollout_path = None
         self.rollout_offset = 0
@@ -311,6 +312,17 @@ class MessageBatch:
                             settled = True
                     return self.stopped_result(unconfirmed=not settled)
                 try:
+                    if self.replacement_requested:
+                        # New messages are already queued in a separate batch.
+                        # Never replay the failed batch or bypass an unknown
+                        # previous outcome when the owner sends fresh input.
+                        await self.settle()
+                        if choice:
+                            self.model_settings.update(choice)
+                            self.state.put(
+                                f"model_settings:{self.thread_id}", self.model_settings
+                            )
+                        return {**self.stopped_result(), "replaced": True}
                     await self.restart(choice)
                 except (IncomingImageError, IncomingVideoError):
                     raise
