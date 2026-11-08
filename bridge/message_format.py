@@ -6,6 +6,13 @@ import re
 
 DIVIDER = "────────"
 
+# Desktop relays repeat this hint with every message. Keep the detailed rules
+# in WeChat-owned sessions without copying them into the desktop transcript.
+WECHAT_RELAY_STYLE = (
+    "先说结果，段落和列表项间空行，长文用【短标题】，避免表格；"
+    "命令/配置/代码各放独立 text 代码块并保留原文缩进，链接写完整 https:// 地址；用户指定格式优先。"
+)
+
 WECHAT_STYLE = """微信最终答复排版：
 • 先说核心结果；短答复自然简洁，不强制套模板。内容多时用【执行结果】【数据明细】【下一步】等短标题分组，组与组可用一行“────────”分隔，不堆叠装饰符或表情。
 • 标题、正文段落、每个数据项和操作项之间留一个空行。数据使用“• 名称：数值 单位”；步骤使用编号。保留关键数据、单位和精度，避免宽表格、空格对齐和复杂嵌套列表。

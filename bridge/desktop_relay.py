@@ -13,7 +13,7 @@ from pathlib import Path
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-from message_format import WECHAT_STYLE, action, card
+from message_format import WECHAT_RELAY_STYLE, action, card
 
 log = logging.getLogger(__name__)
 ALLOWED_TOOLS = {"read_thread", "send_message_to_thread"}
@@ -30,9 +30,8 @@ def marker(message_id: str) -> str:
 def reply_prompt(job: dict) -> str:
     return (
         f"[微信远程消息 {marker(job['id'])}]\n"
-        "以下内容由主人通过已绑定的微信 Bot 直接发送，用于继续本桌面会话。"
-        "桥接器会将本轮最终答复回传微信，无需重复调用微信通知工具。\n\n"
-        + WECHAT_STYLE
+        "已绑定主人的消息；答复自动回微信，无需另行通知。"
+        + WECHAT_RELAY_STYLE
         + "\n\n【主人消息】\n"
         + job["prompt"]
     )

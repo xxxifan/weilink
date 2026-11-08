@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import re
+from collections.abc import Iterator
 from contextvars import ContextVar
 from io import BytesIO
 from pathlib import Path
@@ -127,17 +129,74 @@ def send_voice(config: dict, path: str) -> bool:
         client.close()
 
 
-def split_text(text: str, byte_limit: int = 10000) -> list[str]:
-    parts: list[str] = []
+def _message_blocks(text: str) -> Iterator[str]:
     current: list[str] = []
-    size = 0
-    for char in text:
-        width = len(char.encode("utf-8"))
-        if size + width > byte_limit and current:
-            parts.append("".join(current))
-            current, size = [], 0
-        current.append(char)
-        size += width
+    fence = None
+    for line in text.splitlines(keepends=True):
+        content = line.rstrip("\r\n")
+        if fence:
+            current.append(line)
+            if re.fullmatch(
+                rf" {{0,3}}{re.escape(fence[0])}{{{len(fence)},}}[ \t]*", content
+            ):
+                # A trailing newline must not push an otherwise fitting code
+                # block over the limit and separate its closing fence.
+                current[-1] = content
+                yield "".join(current)
+                current = [line[len(content) :]] if len(line) > len(content) else []
+                fence = None
+            continue
+        opening = re.fullmatch(r" {0,3}(`{3,}|~{3,})(.*)", content)
+        if opening and not (opening[1].startswith("`") and "`" in opening[2]):
+            if current:
+                yield "".join(current)
+            current, fence = [line], opening[1]
+        else:
+            current.append(line)
+            if not content.strip():
+                yield "".join(current)
+                current = []
     if current:
-        parts.append("".join(current))
+        yield "".join(current)
+
+
+def _split_long_block(text: str, byte_limit: int) -> Iterator[str]:
+    data = text.encode("utf-8")
+    offset = 0
+    while offset < len(data):
+        # Only a partial trailing UTF-8 character is dropped here; it remains
+        # in data and starts the next part. Never rewrite code or whitespace.
+        part = data[offset : offset + byte_limit].decode("utf-8", errors="ignore")
+        if not part:
+            raise ValueError("byte_limit is too small for a UTF-8 character")
+        if offset + len(part.encode("utf-8")) < len(data):
+            newline = part.rfind("\n") + 1
+            if newline > len(part) // 2:
+                part = part[:newline]
+        yield part
+        offset += len(part.encode("utf-8"))
+
+
+def split_text(text: str, byte_limit: int = 10000) -> list[str]:
+    if byte_limit <= 0:
+        raise ValueError("byte_limit must be positive")
+    parts: list[str] = []
+    current = ""
+    size = 0
+    # Keep paragraphs and fenced command/code blocks intact whenever they fit
+    # one message. Oversized blocks still preserve every original character.
+    for block in _message_blocks(text):
+        width = len(block.encode("utf-8"))
+        if current and size + width > byte_limit:
+            parts.append(current)
+            current, size = "", 0
+        if width > byte_limit:
+            chunks = list(_split_long_block(block, byte_limit))
+            parts.extend(chunks[:-1])
+            current, size = chunks[-1], len(chunks[-1].encode("utf-8"))
+        else:
+            current += block
+            size += width
+    if current:
+        parts.append(current)
     return parts or [""]

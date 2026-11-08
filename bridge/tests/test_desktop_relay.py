@@ -187,6 +187,31 @@ class RelayTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(self.sends()), 1)
         self.assertEqual(self.status(), "sent")
 
+    async def test_long_desktop_answer_keeps_copyable_code_in_one_outbound_message(
+        self,
+    ):
+        job = self.queue()
+        code = '```text\npwsh -File "C:/a b/run.ps1"\n  保留缩进\n```'
+        answer = "数据说明🙂。\n\n" * 500 + code + "\n\n完成。"
+        self.relay.finish(
+            job,
+            {
+                "status": "completed",
+                "items": [
+                    {"type": "agentMessage", "phase": "final_answer", "text": answer}
+                ],
+            },
+        )
+        parts = [
+            row[0]
+            for row in self.state.db.execute("SELECT text FROM outbox ORDER BY id")
+        ]
+        self.assertGreater(len(parts), 1)
+        self.assertTrue(all(len(part.encode("utf-8")) <= 10000 for part in parts))
+        self.assertTrue(any(code in part for part in parts))
+        self.assertTrue("".join(parts).endswith(answer))
+        self.assertEqual(self.status(), "done")
+
     async def test_native_cross_chat_wrapper_correlates_answer_without_leaking_tool_output(
         self,
     ):
